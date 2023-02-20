@@ -1,6 +1,6 @@
 use sha256::digest;
 use chrono::{Utc};
-use rand::Rng; // 0.8.5
+use rand::Rng;
 
 fn upper(s: &str) -> String {
     let mut c = s.chars();
@@ -21,12 +21,11 @@ fn make_words() -> (String, String) {
 }
 
 fn make_hash() -> String {
-    let now = Utc::now();
-    return digest(now.to_string())[..10].to_string();
+    return digest(Utc::now().to_string())[..10].to_string();
 }
 
-fn make_bangbang() -> String {
-    let things = [
+fn make_bang() -> String {
+    let bangs = [
         "!!",
         "@@",
         "%%",
@@ -37,20 +36,18 @@ fn make_bangbang() -> String {
         "88"
     ];
 
-    let num = rand::thread_rng().gen_range(0..things.len());
-
-    return things[num].to_string();
+    return bangs[rand::thread_rng().gen_range(0..bangs.len())].to_string();
 }
 
 fn main()
 {
-    let words = make_words();
+    let (first, second) = make_words();
     
     println!("{}{}{}{}{}", 
-        words.0,
-        make_bangbang(),
-        words.1,
+        first,
+        make_bang(),
+        second,
         make_hash(),
-        make_bangbang(),
+        make_bang(),
     )
 }
