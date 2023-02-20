@@ -1,6 +1,7 @@
 use sha256::digest;
 use chrono::{Utc};
 use rand::Rng;
+use std::env;
 
 fn upper(s: &str) -> String {
     let mut c = s.chars();
@@ -39,15 +40,26 @@ fn make_bang() -> String {
     return bangs[rand::thread_rng().gen_range(0..bangs.len())].to_string();
 }
 
+fn genpass(count: i32) {
+    for _n in 0..count {
+        let (first, second) = make_words();
+    
+        println!("{}{}{}{}{}", 
+            first,
+            make_bang(),
+            second,
+            make_hash(),
+            make_bang(),
+        )
+    }
+}
+
 fn main()
 {
-    let (first, second) = make_words();
-    
-    println!("{}{}{}{}{}", 
-        first,
-        make_bang(),
-        second,
-        make_hash(),
-        make_bang(),
-    )
+    let mut count = 1;
+    let args: Vec<String> = env::args().collect();
+    if args.len() == 2 {
+        count = args[1].parse::<i32>().unwrap();
+    }
+    genpass(count);
 }
