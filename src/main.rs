@@ -1,4 +1,3 @@
-// use sha2::{Sha256, Digest};
 use sha256::digest;
 use chrono::{Utc};
 use rand::Rng; // 0.8.5
@@ -46,14 +45,7 @@ fn make_bangbang() -> String {
 fn main()
 {
     let words = make_words();
-    // println!("{:?}", words);
-
-    // let hash = make_hash();
-    // println!("{}", hash);
-
-    // let bangbang = make_bangbang();
-    // println!("{}", bangbang);
-
+    
     println!("{}{}{}{}{}", 
         words.0,
         make_bangbang(),
